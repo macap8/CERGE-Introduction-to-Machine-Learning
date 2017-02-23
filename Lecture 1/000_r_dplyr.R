@@ -1,3 +1,8 @@
+rm(list=ls())
+setwd("~/Disk Google/Repositories/CERGE-Introduction-to-Machine-Learning/Lecture 1")
+getwd()
+
+#install.packages("dplyr")
 library(dplyr)
 library(ggplot2)
 
@@ -5,14 +10,11 @@ df <- read.csv("./data/orders.csv")
 
 # Check everything loaded correctly
 head(df)
-
 tail(df)
-
-
+summary(df)
 
 # Coerce to date types
 df$Date <- as.Date(df$Date, format = "%m/%d/%Y")
-
 
 # select 
 df %>% select(Customer.ID, Country) %>% head
@@ -73,14 +75,14 @@ rfm2 %>% ggplot(aes(x=one_time, y=monetary))+geom_violin()
 
 # Ok, we obviously have an outlier
 rfm2 %>% 
-  filter(monetary<1000)%>%
+  filter(monetary<1000) %>%
   ggplot(aes(x=one_time, y=monetary))+geom_violin()+
   xlab("One-time purchasers")+theme_bw()
 
 ## Oops, that didn't work out... perhaps you meant?
 
 rfm2 %>% 
-  filter(monetary<1000)%>%
+  filter(monetary<1000) %>%
   ggplot(aes(x=as.factor(one_time), y=monetary))+geom_violin(fill="blue")+
   xlab("One-time purchasers")+theme_bw()
 
