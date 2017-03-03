@@ -3,6 +3,7 @@ setwd("~/Disk Google/Repositories/CERGE-Introduction-to-Machine-Learning/Lecture
 getwd()
 
 #install.packages("dplyr")
+#install.packages("ggplot2")
 library(dplyr)
 library(ggplot2)
 
