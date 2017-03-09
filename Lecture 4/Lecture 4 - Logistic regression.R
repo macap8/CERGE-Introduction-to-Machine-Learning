@@ -1,8 +1,12 @@
+#install.packages("ROCR")
+#install.packages("caret")
+#install.packages("Amelia")
+#install.packages("e1071")
+
 library(ROCR)
 library(caret)
 library(dplyr)
 library(Amelia)
-#install.packages("e1071")
 
 # Load 'naively', then see how it looks like
 df <- read.csv('train.csv')
