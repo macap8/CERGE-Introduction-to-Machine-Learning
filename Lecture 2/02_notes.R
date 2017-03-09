@@ -1,5 +1,5 @@
 rm(list=ls())
-setwd("~/Disk Google/Repositories/CERGE-Introduction-to-Machine-Learning/Lecture 1")
+setwd("~/Disk Google/Repositories/CERGE-Introduction-to-Machine-Learning/Lecture 2")
 getwd()
 
 df <- read.csv("./data/orders.csv")
@@ -25,7 +25,7 @@ rfm <- df %>%
 hist(rfm$Frequency)
 hist(rfm$Monetary)
 hist(rfm$Recency)
-
+‚
 table(rfm$Monetary)
 
 ################################################
