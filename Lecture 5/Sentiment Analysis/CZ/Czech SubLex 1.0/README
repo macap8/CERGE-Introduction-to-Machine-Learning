@@ -1,0 +1,25 @@
+Sublex 1.0
+----------
+
+CSV description:
+
+- columns are tab-separated
+- column meaning:
+
+	1. Negation (A/N/-)
+	2. Part of Speech
+	3. Lemma
+	4. Orientation (POS/NEG)
+	5. Source information
+
+- Source information contains the words that were translated
+  as the given lexicon entry. The format of the source information
+  string is
+
+	POS-lemma:count,POS-lemma:count
+
+  where POS is the Part of Speech tag (English tagset used in CzEng) of the
+  lemma and count is the number of times the given lemma was translated
+  as the lexicon entry in the data. Individual source information
+  triplets (POS-lemma:count) are separated by commas. POS is separated
+  from the lemma by a dash (-) and lemma from count by a semicolon (:).
