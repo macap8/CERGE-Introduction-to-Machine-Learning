@@ -92,10 +92,69 @@ auc <- auc@y.values[[1]]
 auc
 
 # Accuracy vs cutoff value
-acc = performance(pr, "acc")
+acc <-  performance(pr, "acc")
 
-ac.val = max(unlist(acc@y.values))
+ac.val <-  max(unlist(acc@y.values))
 th = unlist(acc@x.values)[unlist(acc@y.values) == ac.val]
 
 plot(acc)
 abline(v=th, col='grey', lty=2)
+
+
+
+### USING CARET
+
+## ----, eval = FALSE------------------------------------------------------
+## install.packages("caret", dependencies = TRUE)
+## install.packages("randomForest")
+
+## ----, warning = FALSE, message = FALSE----------------------------------
+library(caret)
+library(randomForest)
+
+## ----, eval = FALSE------------------------------------------------------
+## setwd("FILE PATH TO DIRECTORY")
+
+## ----, eval = FALSE------------------------------------------------------
+## setwd("~/Desktop/Titanic/")
+
+## ------------------------------------------------------------------------
+trainSet <- read.table("train.csv", sep = ",", header = TRUE)
+
+## ------------------------------------------------------------------------
+head(trainSet)
+
+
+## ------------------------------------------------------------------------
+table(trainSet[,c("Survived", "Pclass")])
+
+## ----, warning = FALSE, message = FALSE----------------------------------
+# Comparing Age and Survived: The boxplots are very similar between Age
+# for survivors and those who died. 
+library(dplyr)
+library(ggplot2)
+
+trainSet$Survived <- as.factor(trainSet$Survived)
+trainSet %>% ggplot(aes(Survived, Age)) + geom_boxplot()
+
+# Comparing Age and Fare: The boxplots are much different between 
+# Fare for survivors and those who died.
+trainSet %>% ggplot(aes(Survived, Fare)) + geom_boxplot()
+
+# Also, there are no NA's. Include this variable.
+summary(trainSet$Fare)
+
+
+# Set a random seed (so you will get the same results as me)
+set.seed(42)
+# Train the model using a "random forest" algorithm
+model <- train(Survived ~ Pclass + Sex + SibSp +   
+                 Embarked + Parch + Fare, # Survived is a function of the variables we decided to include
+               data = trainSet, # Use the trainSet dataframe as the training data
+               method = "rf",# Use the "random forest" algorithm
+               trControl = trainControl(method = "cv", # Use cross-validation
+                                        number = 5) # Use 5 folds for cross-validation
+)
+
+## ------------------------------------------------------------------------
+model
